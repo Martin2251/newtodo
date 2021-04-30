@@ -7,13 +7,12 @@ function App() {
   const todos = ["get on the bus", "take bin out"];
 
   return (
-    <div className="App">
-      <h1>Hello</h1>
+    <div>
+      <h1> Hello</h1>
       {todos.map((todo) => (
-        <p>{todo}</p>
+        <Todo todo={todo} />
       ))}
     </div>
   );
 }
-
 export default App;
