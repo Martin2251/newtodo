@@ -1,46 +1,68 @@
-import React, { Component } from "react";
-import Todo from "./Components/Todo";
-import { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
+import Todo from "./Todo";
+import { useState, useEffect } from "react";
 
-//initial value and state
-const initialState = ["get on the bus", "take bin out"];
+//initial state
+//const initialState = ["Clean Bathroom", "Learn React", "Code"];
+
+function getTodoFromLocalStorage() {
+  let todosString = localStorage.getItem("todos");
+  if (todosString && todosString.length > 0) {
+    return todosString.split(",");
+  } else {
+    return [];
+  }
+}
 
 function App() {
-  const [todos, setTodos] = useState(initialState);
-  // user input values
+  const [todos, setTodos] = useState(getTodoFromLocalStorage());
   const [inputValue, setInputValue] = useState("");
 
   function removeTodo(todo) {
     setTodos(todos.filter((td) => td !== todo));
   }
 
-  // everytime the user puts information it will change because of on change, on change is set to empty because we dont know what user will put in
+  useEffect(() => {
+    localStorage.setItem("todos", todos);
+  }, [todos]);
+
   return (
-    <div>
-      <h1> Todo List</h1>
+    <div id="app">
+      <h1 className="todos-title">Martin To Do</h1>
+      <div className="input-row"></div>
       <div>
         <input
+          className="add-todo-input"
           value={inputValue}
           onChange={(event) => {
             setInputValue(event.target.value);
           }}
         ></input>
         <button
+          className="submit-button"
           onClick={(e) => {
-            //add todo
-            setTodos([...todos, inputValue]);
-            // clean up the field
-            setInputValue("");
+            if (inputValue && inputValue.length > 0) {
+              //add todo
+              setTodos([...todos, inputValue]);
+              //clean up
+              setInputValue("");
+            }
           }}
         >
-          Add todo
+          Add Todo
         </button>
       </div>
-      {todos.map((todo) => (
-        <Todo todo={todo} removeTodo={removeTodo} />
-      ))}
+      <div className="todo-container">
+        {todos.map((todo) => (
+          <Todo todo={todo} removeTodo={removeTodo} />
+        ))}
+      </div>
+      <p>
+        You have <strong>{todos.length}</strong> tasks in progress
+      </p>
     </div>
   );
 }
+
 export default App;
