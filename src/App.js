@@ -22,7 +22,16 @@ function App() {
             setInputValue(event.target.value);
           }}
         ></input>
-        <button onClick={(e) =>}>Add todo</button>
+        <button
+          onClick={(e) => {
+            //add todo
+            setTodos([...todos, inputValue]);
+            // clean up the field
+            setInputValue("");
+          }}
+        >
+          Add todo
+        </button>
       </div>
       {todos.map((todo) => (
         <Todo todo={todo} />
