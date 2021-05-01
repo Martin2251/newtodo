@@ -4,6 +4,8 @@
   margin: 5px;
   padding: 10px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 
 .todo:hover {
