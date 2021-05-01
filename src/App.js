@@ -11,6 +11,10 @@ function App() {
   // user input values
   const [inputValue, setInputValue] = useState("");
 
+  function removeTodo(todo) {
+    setTodos(todos.filter((td) => td !== todo));
+  }
+
   // everytime the user puts information it will change because of on change, on change is set to empty because we dont know what user will put in
   return (
     <div>
@@ -34,7 +38,7 @@ function App() {
         </button>
       </div>
       {todos.map((todo) => (
-        <Todo todo={todo} />
+        <Todo todo={todo} removeTodo={removeTodo} />
       ))}
     </div>
   );

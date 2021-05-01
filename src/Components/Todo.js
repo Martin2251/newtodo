@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Todo(props) {
+export default function Todo(todo, removeTodo) {
   return (
     <div className="todo">
-      <p>{props.todo}</p>
-      <button>X</button>
+      <p>{todo}</p>
+      <button className="remove">X</button>
     </div>
   );
 }
